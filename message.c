@@ -1,21 +1,11 @@
-/*************************************************************************
-    > File Name: message.c
-	> Author: hcyvan
-	> Mail: navych@126.com 
-	> Created Time: 2015年05月17日 星期日 19时54分00秒
-************************************************************************/
-#include <stdlib.h>
-#include <string.h>
 #include "lucia.tab.h"
 #include "message.h"
 #include "lib.h"
 int col=0;
 int line=1;
 
-string fileName;
+char* fileName;
 symtab stab=NULL;
-
-extern char *strdup(char *s);
 
 symtab checkTable(char* s)
 {
@@ -41,10 +31,4 @@ symtab checkTable(char* s)
 	stab->id=strdup(s);
 	return stab;
 }
-
-
-	
-//YYSTYPE yylval;
-
-
 

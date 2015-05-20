@@ -1,9 +1,3 @@
-/*************************************************************************
-    > File Name: message.c
-	> Author: hcyvan
-	> Mail: navych@126.com 
-	> Created Time: 2015年05月17日 星期日 19时54分00秒
-************************************************************************/
 #ifndef _MESSAGE_H_
 #define _MESSAGE_H_
 #include "lucia.tab.h"
