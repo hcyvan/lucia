@@ -16,7 +16,6 @@ void* checked_malloc(int n)
 	return p;
 }
 
-
 void errorExit(char* s)
 {
 	perror(s);

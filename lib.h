@@ -1,9 +1,10 @@
 #ifndef _LIB_H_
 #define _LIB_H_
-
-
-typedef char* string;
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// the function prototype decleared in <string.h>
+extern char* strdup(char*);
 // if malloc() return NULL, call exit().
 void *checked_malloc(int);
 // perror() massage and eixt()
