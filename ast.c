@@ -2,6 +2,7 @@
 #include "lib.h"
 #include "symbol.h"
 #include "table.h"
+#include "syminfo.h"
 // symbol talbe create in main.o
 extern S_table symbolTable;  
 
@@ -63,8 +64,9 @@ N_exp Exp_IDS(char* id)
 	p->type=_IDS;
 	p->val.id=strdup(id);
 	// Add id to symbol table
-	void *key=(void*)symbolConvert(id);
-	ST_push(symbolTable,key,NULL);
+	void *key=(void*)symbolConvert(id);		// key
+	S_info info=SI_create();				// value	
+	ST_push(symbolTable,key,(void*)info);
 
 	return p;
 }

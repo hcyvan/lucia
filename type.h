@@ -4,15 +4,16 @@
 typedef struct Ty_* Ty;
 
 struct Ty_ {
-	enum{Ty_nil,Ty_int,Ty_string,Ty_void} kind;
+	enum{Ty_nil,Ty_int,Ty_double,Ty_string,Ty_void} kind;
 	union{
 	} u;
 };
-
+/*
 Ty Ty_Nil(void);
 Ty Ty_Int(void);
+Ty Ty_Double(void);
 Ty Ty_String(void);
 Ty Ty_Void(void);
-
+*/
 
 #endif
