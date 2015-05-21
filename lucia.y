@@ -2,7 +2,10 @@
 #include "message.h"
 #include "ast.h"
 #include "lib.h"
+//#include "symbol.h"
+//#include "table.h"
 extern int yylineno;		//yylineno is the line number of source
+//extern struct T_table_ *symboltable; 
 int yyerror(char* msg)
 {
 	printf("%s : %d\n",msg,yylineno); 
@@ -17,7 +20,7 @@ int yylex(void);
 	double dval;
 	char cval;
 	char* sval;
-	struct N_value_* valt;
+	struct N_const_* constt;
 	struct N_exp_* expt;
 	struct N_bopExp_* bopExpt;
 	struct N_stm_* stmt;
@@ -25,12 +28,11 @@ int yylex(void);
 	struct N_prog_* progt;
 }
 %token <sval> ID
-%token <ival> VALUE
 %token <ival> INT
 %token <dval> DOUBLE
 %token <cval> CHAR
 
-%type <valt> n_value
+%type <constt> n_const
 %type <expt> n_exp
 %type <bopExpt> n_bopExp
 %type <stmt> n_stm
@@ -42,18 +44,18 @@ int yylex(void);
 %left '+' '-'
 %left '*' '/'
 %%
-n_prog: n_stmList '$' 		{printf("program end\n"); $$=Prog_STMLIST($1);return 0;}
+n_prog: n_stmList '$'		{printf("program end\n"); $$=Prog_STMLIST($1);return 0;}
 		;
-n_stmList:n_stmList n_stm  '\n'	{$$=StmList_STMLIST($1,$2);}
-		| n_stm  '\n'			{$$=StmList_STM($1);}				
+n_stmList:n_stmList n_stm '\n'{$$=StmList_STMLIST($1,$2);}
+		| n_stm  '\n'		{$$=StmList_STM($1);}				
 		;
 n_stm: ID '=' n_exp			{$$=Stm_ASSIGN($1,$3);}
-		| n_exp				{$$=Stm_EXP($1);}
-		| '?' n_exp			{$$=Stm_PRINT($2);}
-		;
+	| n_exp					{$$=Stm_EXP($1);}
+	| '?' n_exp				{$$=Stm_PRINT($2);}
+	;
 n_exp: n_bopExp				{$$=Exp_BOPEXP($1);}
 		| ID				{$$=Exp_IDS($1);}
-		| n_value			{$$=Exp_VALUES($1);}
+		| n_const			{$$=Exp_CONST($1);}
 		;
 n_bopExp:n_exp '+' n_exp	{$$=BopExp_PLUS($1,$3);}
 	    | n_exp '-' n_exp	{$$=BopExp_MINUS($1,$3);}
@@ -61,9 +63,9 @@ n_bopExp:n_exp '+' n_exp	{$$=BopExp_PLUS($1,$3);}
         | n_exp '/' n_exp	{$$=BopExp_DIVIDE($1,$3);}
 		;
 
-n_value:INT				{$$=Value_INT($1);}
-		| DOUBLE		{$$=Value_DOUBLE($1);}
-		| CHAR			{$$=Value_CHAR($1);}
+n_const:INT				{$$=Const_INT($1);}
+		| DOUBLE		{$$=Const_DOUBLE($1);}
+		| CHAR			{$$=Const_CHAR($1);}
 		;
 
 

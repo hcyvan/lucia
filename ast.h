@@ -4,7 +4,7 @@ typedef struct N_prog_ *N_prog;
 typedef struct N_stmList_ *N_stmList;
 typedef struct N_stm_ *N_stm;
 typedef struct N_exp_ *N_exp;
-typedef struct N_value_ *N_value;
+typedef struct N_const_ *N_const;
 typedef struct N_bopExp_ *N_bopExp;
 struct N_prog_{
 	enum{_STMLIST} type;
@@ -27,9 +27,9 @@ struct N_stm_{
 	} val;
 };
 struct N_exp_{
-	enum{_VALUES,_IDS,_BOPEXP} type;
+	enum{_CONST,_IDS,_BOPEXP} type;
 	union{
-		N_value value;
+		N_const value;
 		char* id;
 		N_bopExp bopExp;
 	} val;
@@ -39,7 +39,7 @@ struct N_bopExp_{
 	N_exp left;
 	N_exp right;
 };
-struct N_value_{
+struct N_const_{
 	enum{_INT,_DOUBLE,_CHAR} type;
 	union{
 		int i;
@@ -55,12 +55,12 @@ N_stmList StmList_STM(N_stm);
 N_stm Stm_ASSIGN(char*,N_exp);
 N_stm Stm_EXP(N_exp);
 N_stm Stm_PRINT(N_exp);
-N_exp Exp_VALUES(N_value);
+N_exp Exp_CONST(N_const);
 N_exp Exp_IDS(char*);
 N_exp Exp_BOPEXP(N_bopExp);
-N_value	Value_INT(int);
-N_value	Value_DOUBLE(double);
-N_value	Value_CHAR(char);
+N_const	Const_INT(int);
+N_const	Const_DOUBLE(double);
+N_const	Const_CHAR(char);
 N_bopExp BopExp_PLUS(N_exp,N_exp);
 N_bopExp BopExp_MINUS(N_exp,N_exp);
 N_bopExp BopExp_TIMES(N_exp,N_exp);

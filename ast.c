@@ -1,5 +1,10 @@
 #include "ast.h"
 #include "lib.h"
+#include "symbol.h"
+#include "table.h"
+// symbol talbe create in main.o
+extern S_table symbolTable;  
+
 N_prog Prog_STMLIST(N_stmList list)
 {
 	N_prog p=(N_prog)checked_malloc(sizeof(*p));
@@ -45,10 +50,10 @@ N_stm Stm_PRINT(N_exp exp)
 	p->val.exp=exp;
 	return p;
 }
-N_exp Exp_VALUES(N_value value)
+N_exp Exp_CONST(N_const value)
 {
 	N_exp p=(N_exp)checked_malloc(sizeof(*p));
-	p->type=_VALUES;
+	p->type=_CONST;
 	p->val.value=value;
 	return p;
 }
@@ -57,6 +62,10 @@ N_exp Exp_IDS(char* id)
 	N_exp p=(N_exp)checked_malloc(sizeof(*p));
 	p->type=_IDS;
 	p->val.id=strdup(id);
+	// Add id to symbol table
+	void *key=(void*)symbolConvert(id);
+	ST_push(symbolTable,key,NULL);
+
 	return p;
 }
 N_exp Exp_BOPEXP(N_bopExp bopExp)
@@ -66,23 +75,23 @@ N_exp Exp_BOPEXP(N_bopExp bopExp)
 	p->val.bopExp=bopExp;
 	return p;
 }
-N_value	Value_INT(int i)
+N_const	Const_INT(int i)
 {
-	N_value p=(N_value)checked_malloc(sizeof(*p));
+	N_const p=(N_const)checked_malloc(sizeof(*p));
 	p->type=_INT;
 	p->val.i=i;
 	return p;
 }
-N_value	Value_DOUBLE(double d)
+N_const	Const_DOUBLE(double d)
 {
-	N_value p=(N_value)checked_malloc(sizeof(*p));
+	N_const p=(N_const)checked_malloc(sizeof(*p));
 	p->type=_DOUBLE;
 	p->val.d=d;
 	return p;
 }
-N_value	Value_CHAR(char c)
+N_const	Const_CHAR(char c)
 {
-	N_value p=(N_value)checked_malloc(sizeof(*p));
+	N_const p=(N_const)checked_malloc(sizeof(*p));
 	p->type=_CHAR;
 	p->val.c=c;
 	return p;
