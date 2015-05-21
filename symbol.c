@@ -9,6 +9,7 @@
 	table **/
 static S_symbol S_convertTable[CONVERTSIZE];
 
+/** The hash function is form "Modern Compiler Implementation in C" **/
 static unsigned int hash(char *s)
 {
 	unsigned int h=0;

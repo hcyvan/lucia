@@ -10,9 +10,6 @@ struct S_symbol_{
 	S_symbol next;
 };
 
-/** The hash function is form "Modern Compiler Implementation in C" **/
-static unsigned int hash(char *);
-
 /** insert a string to hashtable. If the string is exist, return the "it", otherwise,
 	create a new one and push "it" into the hash chain in the hash table. **/
 S_symbol symbolConvert(char *);
