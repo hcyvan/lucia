@@ -42,7 +42,8 @@ int yylex(void);
 %left '+' '-'
 %left '*' '/'
 %%
-n_prog: n_stmList				{$$=Prog_STMLIST($1);}
+n_prog: n_stmList '$' 		{printf("program end\n"); $$=Prog_STMLIST($1);return 0;}
+		;
 n_stmList:n_stmList n_stm  '\n'	{$$=StmList_STMLIST($1,$2);}
 		| n_stm  '\n'			{$$=StmList_STM($1);}				
 		;
@@ -58,7 +59,7 @@ n_bopExp:n_exp '+' n_exp	{$$=BopExp_PLUS($1,$3);}
 	    | n_exp '-' n_exp	{$$=BopExp_MINUS($1,$3);}
 	    | n_exp '*' n_exp	{$$=BopExp_TIMES($1,$3);}
         | n_exp '/' n_exp	{$$=BopExp_DIVIDE($1,$3);}
-
+		;
 
 n_value:INT				{$$=Value_INT($1);}
 		| DOUBLE		{$$=Value_DOUBLE($1);}
