@@ -27,6 +27,7 @@ S_symbol symbolConvert(char *s)
 			return p;
 	
 	S_symbol sym=(S_symbol)checked_malloc(sizeof(*sym));
+	sym->name=strdup(s);// segment fault debug: sym->name should be initialized
 	sym->next=S_convertTable[index];
 	S_convertTable[index]=sym;
 	return sym;
