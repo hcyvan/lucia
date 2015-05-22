@@ -20,29 +20,35 @@ int yylex(void);
 	double dval;
 	char cval;
 	char* sval;
-	struct N_const_* constt;
+	struct N_prog_* progt;
+	struct N_stmList_* stmListt;
+	struct N_stm_* stmt;
 	struct N_exp_* expt;
 	struct N_bopExp_* bopExpt;
-	struct N_stm_* stmt;
-	struct N_stmList_* stmListt;
-	struct N_prog_* progt;
+	struct N_mopExp_* mopExpt;
+	struct N_const_* constt;
 }
+
 %token <sval> ID
 %token <ival> INT
 %token <dval> DOUBLE
 %token <cval> CHAR
+%token <sval> STRING
 
-%type <constt> n_const
+%type <progt> n_prog
+%type <stmListt> n_stmList
+%type <stmt> n_stm
 %type <expt> n_exp
 %type <bopExpt> n_bopExp
-%type <stmt> n_stm
-%type <stmListt> n_stmList
-%type <progt> n_prog
+%type <mopExpt> n_mopExp
+%type <constt> n_const
 
 
 %start n_prog
+%nonassoc NEGATIVE
 %left '+' '-'
 %left '*' '/'
+%left '^'
 %%
 n_prog: n_stmList '$'		{printf("program end\n"); $$=Prog_STMLIST($1);return 0;}
 		;
@@ -53,19 +59,24 @@ n_stm: ID '=' n_exp			{$$=Stm_ASSIGN($1,$3);}
 	| n_exp					{$$=Stm_EXP($1);}
 	| '?' n_exp				{$$=Stm_PRINT($2);}
 	;
-n_exp: n_bopExp				{$$=Exp_BOPEXP($1);}
+n_exp: 	n_const				{$$=Exp_CONST($1);}
 		| ID				{$$=Exp_IDS($1);}
-		| n_const			{$$=Exp_CONST($1);}
+		| n_bopExp			{$$=Exp_BOPEXP($1);}
+		| n_mopExp			{$$=Exp_MOPEXP($1);}
 		;
 n_bopExp:n_exp '+' n_exp	{$$=BopExp_PLUS($1,$3);}
 	    | n_exp '-' n_exp	{$$=BopExp_MINUS($1,$3);}
 	    | n_exp '*' n_exp	{$$=BopExp_TIMES($1,$3);}
         | n_exp '/' n_exp	{$$=BopExp_DIVIDE($1,$3);}
+		| n_exp '^' n_exp	{$$=BopExp_POW($1,$3);}
+		;
+n_mopExp:'-' n_exp %prec NEGATIVE			{$$=MopExp_NEGATIVE($2);}
 		;
 
 n_const:INT				{$$=Const_INT($1);}
 		| DOUBLE		{$$=Const_DOUBLE($1);}
 		| CHAR			{$$=Const_CHAR($1);}
+		| STRING		{$$=Const_STRING($1);;}
 		;
 
 

@@ -77,6 +77,13 @@ N_exp Exp_BOPEXP(N_bopExp bopExp)
 	p->val.bopExp=bopExp;
 	return p;
 }
+N_exp Exp_MOPEXP(N_mopExp mopExp)
+{
+	N_exp p=(N_exp)checked_malloc(sizeof(*p));
+	p->type=_MOPEXP;
+	p->val.mopExp=mopExp;
+	return p;
+}
 N_const	Const_INT(int i)
 {
 	N_const p=(N_const)checked_malloc(sizeof(*p));
@@ -96,6 +103,13 @@ N_const	Const_CHAR(char c)
 	N_const p=(N_const)checked_malloc(sizeof(*p));
 	p->type=_CHAR;
 	p->val.c=c;
+	return p;
+}
+N_const	Const_STRING(char* s)
+{
+	N_const p=(N_const)checked_malloc(sizeof(*p));
+	p->type=_STRING;
+	p->val.s=strdup(s);		// strdup() to copy a string 
 	return p;
 }
 N_bopExp BopExp_PLUS(N_exp left,N_exp right)
@@ -128,5 +142,20 @@ N_bopExp BopExp_DIVIDE(N_exp left,N_exp right)
 	p->type=_DIVIDSE;
 	p->left=left;
 	p->right=right;
+	return p;
+}
+N_bopExp BopExp_POW(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_POW;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_mopExp MopExp_NEGATIVE(N_exp exp)
+{
+	N_mopExp p=(N_mopExp)checked_malloc(sizeof(*p));
+	p->type=_NEGATIVE;
+	p->exp=exp;
 	return p;
 }
