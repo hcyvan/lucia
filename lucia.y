@@ -4,8 +4,14 @@
 #include "lib.h"
 //#include "symbol.h"
 //#include "table.h"
-extern int yylineno;		//yylineno is the line number of source
+extern int yylineno;		// yylineno is the line number of source
 //extern struct T_table_ *symboltable; 
+
+/** The root point of a abstract syntax tree.
+	The point is declared in main.o, and won't
+	be destroied even yyparse() is finished.**/
+extern N_prog asTree;
+
 int yyerror(char* msg)
 {
 	printf("%s : %d\n",msg,yylineno); 
@@ -51,7 +57,7 @@ int yylex(void);
 %left '*' '/'
 %left '^'
 %%
-n_prog: n_stmList		{$$=Prog_STMLIST($1);return 0;}
+n_prog: n_stmList		{asTree=Prog_STMLIST($1);return 0;}
 		;
 n_stmList:n_stmList n_stm  {$$=StmList_STMLIST($1,$2);}
 		| n_stm 		{$$=StmList_STM($1);}				
@@ -81,8 +87,6 @@ n_const:INT				{$$=Const_INT($1);}
 		| CHAR			{$$=Const_CHAR($1);}
 		| STRING		{$$=Const_STRING($1);;}
 		;
-
-
 
 
 

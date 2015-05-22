@@ -74,8 +74,7 @@ N_exp Exp_IDS(char* id)
 	// Add id to symbol table
 	void *key=(void*)symbolConvert(id);		// key
 //	S_info info=SI_create();				// value	
-//	ST_push(symbolTable,key,(void*)info);
-
+	ST_push(symbolTable,key,(void*)Ty_Nil());
 	return p;
 }
 N_exp Exp_BOPEXP(N_bopExp bopExp)
