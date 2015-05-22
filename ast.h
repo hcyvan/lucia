@@ -21,10 +21,11 @@ struct N_stmList_{
 	} val;
 };
 struct N_stm_{
-	enum{_ASSIGN,_EXP,_PRINT} type;
+	enum{_ASSIGN,_EXP,_PRINT,_IFSTM} type;
 	union{
 		struct{char* id; N_exp exp;} assign;
 		N_exp exp;
+		struct{N_exp exp;N_stmList stmList;} ifstm;
 	} val;
 };
 struct N_exp_{
@@ -62,6 +63,7 @@ N_stmList StmList_STM(N_stm);
 N_stm Stm_ASSIGN(char*,N_exp);
 N_stm Stm_EXP(N_exp);
 N_stm Stm_PRINT(N_exp);
+N_stm Stm_IFSTM(N_exp,N_stmList);
 N_exp Exp_CONST(N_const);
 N_exp Exp_IDS(char*);
 N_exp Exp_BOPEXP(N_bopExp);

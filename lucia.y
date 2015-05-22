@@ -34,6 +34,7 @@ int yylex(void);
 %token <dval> DOUBLE
 %token <cval> CHAR
 %token <sval> STRING
+%token 	IF
 
 %type <progt> n_prog
 %type <stmListt> n_stmList
@@ -50,14 +51,16 @@ int yylex(void);
 %left '*' '/'
 %left '^'
 %%
-n_prog: n_stmList '$'		{printf("program end\n"); $$=Prog_STMLIST($1);return 0;}
+n_prog: n_stmList		{$$=Prog_STMLIST($1);return 0;}
 		;
-n_stmList:n_stmList n_stm '\n'{$$=StmList_STMLIST($1,$2);}
-		| n_stm  '\n'		{$$=StmList_STM($1);}				
+n_stmList:n_stmList n_stm  {$$=StmList_STMLIST($1,$2);}
+		| n_stm 		{$$=StmList_STM($1);}				
 		;
-n_stm: ID '=' n_exp			{$$=Stm_ASSIGN($1,$3);}
-	| n_exp					{$$=Stm_EXP($1);}
-	| '?' n_exp				{$$=Stm_PRINT($2);}
+n_stm: ID '=' n_exp	';'	{$$=Stm_ASSIGN($1,$3);}
+	| n_exp			';'		{$$=Stm_EXP($1);}
+	| '?' n_exp		';'		{$$=Stm_PRINT($2);}
+	| IF '(' n_exp ')''{'n_stmList '}' {$$=Stm_IFSTM($3,$6);}
+	| ';'
 	;
 n_exp: 	n_const				{$$=Exp_CONST($1);}
 		| ID				{$$=Exp_IDS($1);}

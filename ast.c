@@ -51,6 +51,14 @@ N_stm Stm_PRINT(N_exp exp)
 	p->val.exp=exp;
 	return p;
 }
+N_stm Stm_IFSTM(N_exp exp,N_stmList stmList)
+{
+	N_stm p=(N_stm)checked_malloc(sizeof(*p));
+	p->type=_IFSTM;
+	p->val.ifstm.exp=exp;
+	p->val.ifstm.stmList=stmList;
+	return p;
+}
 N_exp Exp_CONST(N_const value)
 {
 	N_exp p=(N_exp)checked_malloc(sizeof(*p));
@@ -65,8 +73,8 @@ N_exp Exp_IDS(char* id)
 	p->val.id=strdup(id);
 	// Add id to symbol table
 	void *key=(void*)symbolConvert(id);		// key
-	S_info info=SI_create();				// value	
-	ST_push(symbolTable,key,(void*)info);
+//	S_info info=SI_create();				// value	
+//	ST_push(symbolTable,key,(void*)info);
 
 	return p;
 }
