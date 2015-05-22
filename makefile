@@ -1,7 +1,7 @@
 CC=gcc -Wall -std=c99
 YACC=bison -v -d
 LEX=flex
-OBJECTS=main.o lex.o lucia.tab.o message.o lib.o ast.o symbol.o type.o table.o syminfo.o
+OBJECTS=main.o lex.o lucia.tab.o message.o lib.o ast.o symbol.o type.o table.o syminfo.o transast.o
 
 parser:$(OBJECTS)
 	$(CC) -o parser $(OBJECTS)

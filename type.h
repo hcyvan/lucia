@@ -8,12 +8,10 @@ struct Ty_ {
 	union{
 	} u;
 };
-/*
 Ty Ty_Nil(void);
 Ty Ty_Int(void);
 Ty Ty_Double(void);
 Ty Ty_String(void);
 Ty Ty_Void(void);
-*/
 
 #endif
