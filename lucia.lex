@@ -23,6 +23,7 @@ void newline()
 %%
 [0-9]+					 	{updatePosition();yylval.ival=atoi(yytext);return INT;}
 [0-9]*\.[0-9]+				{updatePosition();yylval.dval=atof(yytext);return DOUBLE;}
+'"' .*? '"'					{updatePosition();yylval.sval=yytext;return STRING;}
 if							{updatePosition();return IF;}
 [_A-Za-z][_A-Za-z0-9]*		{updatePosition();yylval.sval=yytext;return ID;}
 \".*\"						{updatePosition();yylval.sval=yytext;return STRING;}

@@ -4,6 +4,7 @@
 #include "ast.h"
 #include "symbol.h"
 #include "type.h"
+#include "transast.h"
 extern FILE *yyin;
 extern int yyparse(void);
 
@@ -32,6 +33,9 @@ int main(int argc,char** argv)
 	/** Recieve tokens from yylex() and return a 
 		absract syntax tree point. **/
 	yyparse();
+
+	/** Generate intermediate representation **/
+	transProg(symbolTable,asTree);
 
 	return 0;
 }

@@ -71,10 +71,13 @@ N_exp Exp_IDS(char* id)
 	N_exp p=(N_exp)checked_malloc(sizeof(*p));
 	p->type=_IDS;
 	p->val.id=strdup(id);
+	/** The id should not add too symbol table now **/
+	/*
 	// Add id to symbol table
 	void *key=(void*)symbolConvert(id);		// key
-//	S_info info=SI_create();				// value	
+	//	S_info info=SI_create();			// value	
 	ST_push(symbolTable,key,(void*)Ty_Nil());
+	*/
 	return p;
 }
 N_exp Exp_BOPEXP(N_bopExp bopExp)
