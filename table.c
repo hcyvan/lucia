@@ -39,14 +39,15 @@ void* T_pop(S_table t)
 	return key;
 }
 
-void* T_lookUp(S_table t,void *key)
+binder T_lookUp(S_table t,void *key)
 {
 	assert(t&&key);
 	int index=((unsigned)key) % TABLESIZE;
 
 	for(binder p=t->table[index];p;p=p->next)
-		if(p->key==key)
-			return p->value;
+		if(p->key==key){
+			return p;
+		}
 	return NULL;
 }
 

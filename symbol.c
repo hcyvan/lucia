@@ -1,6 +1,6 @@
 #include "symbol.h"
-#include "table.h"
 #include "lib.h"
+#include "type.h"
 
 /** It's a hash table, but it is not a symbol table.
 	We convert the symbol to a unique address, so the
@@ -48,10 +48,30 @@ void* ST_pop(S_table t)
 	return T_pop(t);
 }
 
-void* ST_lookUp(S_table t,S_symbol key)
+binder ST_lookUp(S_table t,S_symbol key)
 {
+
 	return T_lookUp(t,(void*)key);	
 }
+
+void* ST_getValue(S_table t, S_symbol key)
+{
+	if(ST_lookUp(t,(void*)key)){
+		binder p=T_lookUp(t,(void*)key);
+		return (void*)p->value;
+	}
+	void* nil=(void*)Ty_Nil();
+	ST_push(t,key,nil);
+	return nil;
+}
+
+void ST_setValue(S_table t,S_symbol key,void* value)
+{
+	binder p=ST_lookUp(t,key);
+	assert(p);
+	p->value=value;
+}
+
 
 /** This "symbol" is used as a sign to mark the scope **/
 static struct S_symbol_ mark_ = {"<mark>",0};

@@ -28,8 +28,8 @@ S_table T_create(void);
 void T_push(S_table, void*,void *);
 /** Pop a binder and return the (void*)key int the binder **/
 void* T_pop(S_table);
-/** Search in the hash table, and return the value. If the key
-	is not exist, return NULL. **/
-void* T_lookUp(S_table,void*);
+/** Search in the hash table, and return the point ofbinder.
+	If the key is not exist, return NULL. **/
+binder T_lookUp(S_table,void*);
 
 #endif

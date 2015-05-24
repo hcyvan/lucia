@@ -8,14 +8,29 @@ struct expOut_ transExp(S_table env,N_exp exp)
 			{		// "{}" is needed. Insure e is defined.
 			struct expOut_ e;
 			S_symbol key=symbolConvert(exp->val.id);
-			e.ty=(Ty)ST_lookUp(env,key);
+			e.ty=(Ty)ST_getValue(env,key);
 			return e;
 			}
 			break;
 		case _CONST:
 			{
 			struct expOut_ e;
-			e.ty=Ty_Nil();
+				switch(exp->val.value->type){
+					{
+					case _INT:
+						e.ty=Ty_Int();
+						break;
+					case _DOUBLE:
+						e.ty=Ty_Double();
+						break;
+					case _STRING:
+						e.ty=Ty_String();
+						break;
+					default:
+						e.ty=Ty_Void();
+						break;
+					}
+				}
 			return e;
 			}
 			break;
@@ -53,10 +68,12 @@ void transStm(S_table env,N_stm stm)
 		case _ASSIGN:
 			{
 			S_symbol key=symbolConvert(stm->val.assign.id);
-			Ty ty_id=(Ty)ST_lookUp(env,key);
+			Ty ty_id=(Ty)ST_getValue(env,key);
 			struct expOut_ e=transExp(env,stm->val.assign.exp);		
+			
 			if(e.ty->kind!=ty_id->kind)
-				errorExit("type is not the same in assignment statement\n");
+				// Set the type of id so that it match the exp.
+				ST_setValue(env,key,(void*)e.ty->kind);
 			}
 			break;
 		case _IFSTM:
