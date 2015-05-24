@@ -4,6 +4,7 @@ struct Ty_ tynil={Ty_nil};
 struct Ty_ tyint={Ty_int};
 struct Ty_ tydouble={Ty_double};
 struct Ty_ tystring={Ty_string};
+struct Ty_ tybool={Ty_bool};
 struct Ty_ tyvoid={Ty_void};
 Ty Ty_Nil(void)
 {
@@ -22,6 +23,11 @@ Ty Ty_Double(void)
 Ty Ty_String(void)
 {
 	return &tystring;
+}
+
+Ty Ty_Bool(void)
+{
+	return &tybool;
 }
 
 Ty Ty_Void(void)

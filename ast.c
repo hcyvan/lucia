@@ -122,6 +122,16 @@ N_const	Const_STRING(char* s)
 	p->val.s=strdup(s);		// strdup() to copy a string 
 	return p;
 }
+N_const	Const_BOOL(char* s)
+{
+	N_const p=(N_const)checked_malloc(sizeof(*p));
+	p->type=_BOOL;
+	if(strcmp(s,"true"))
+		p->val.b=1;
+	else
+		p->val.b=0;
+	return p;
+}
 N_bopExp BopExp_PLUS(N_exp left,N_exp right)
 {
 	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
@@ -160,6 +170,77 @@ N_bopExp BopExp_POW(N_exp left,N_exp right)
 	p->type=_POW;
 	p->left=left;
 	p->right=right;
+	return p;
+}
+N_bopExp BopExp_AND(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_AND;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_OR(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_OR;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_EQ(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_EQ;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_NE(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_NE;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_GT(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_GT;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_LT(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_LT;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_GE(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_GE;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_bopExp BopExp_LE(N_exp left,N_exp right)
+{
+	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
+	p->type=_LE;
+	p->left=left;
+	p->right=right;
+	return p;
+}
+N_mopExp MopExp_NOT(N_exp exp)
+{
+	N_mopExp p=(N_mopExp)checked_malloc(sizeof(*p));
+	p->type=_NOT;
+	p->exp=exp;
 	return p;
 }
 N_mopExp MopExp_NEGATIVE(N_exp exp)

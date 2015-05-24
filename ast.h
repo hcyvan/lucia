@@ -38,18 +38,20 @@ struct N_exp_{
 	} val;
 };
 struct N_bopExp_{
-	enum{_PLUS,_MINUS,_TIMES,_DIVIDSE,_POW} type;
+	enum{_PLUS,_MINUS,_TIMES,_DIVIDSE,_POW,_AND,_OR,\
+			_EQ,_NE,_GT,_LT,_GE,_LE} type;
 	N_exp left;
 	N_exp right;
 };
 struct N_mopExp_{
-	enum{_NEGATIVE} type;
+	enum{_NEGATIVE,_NOT} type;
 	N_exp exp;
 };
 struct N_const_{
-	enum{_INT,_DOUBLE,_CHAR,_STRING} type;
+	enum{_INT,_DOUBLE,_CHAR,_STRING,_BOOL} type;
 	union{
 		int i;
+		int b;
 		double d;
 		char c;
 		char* s;
@@ -72,11 +74,21 @@ N_const	Const_INT(int);
 N_const	Const_DOUBLE(double);
 N_const	Const_CHAR(char);
 N_const	Const_STRING(char*);
+N_const	Const_BOOL(char*);
 N_bopExp BopExp_PLUS(N_exp,N_exp);
 N_bopExp BopExp_MINUS(N_exp,N_exp);
 N_bopExp BopExp_TIMES(N_exp,N_exp);
 N_bopExp BopExp_DIVIDE(N_exp,N_exp);
 N_bopExp BopExp_POW(N_exp,N_exp);
+N_bopExp BopExp_AND(N_exp,N_exp);
+N_bopExp BopExp_OR(N_exp,N_exp);
+N_bopExp BopExp_EQ(N_exp,N_exp);
+N_bopExp BopExp_NE(N_exp,N_exp);
+N_bopExp BopExp_GT(N_exp,N_exp);
+N_bopExp BopExp_LT(N_exp,N_exp);
+N_bopExp BopExp_GE(N_exp,N_exp);
+N_bopExp BopExp_LE(N_exp,N_exp);
+N_mopExp MopExp_NOT(N_exp);
 N_mopExp MopExp_NEGATIVE(N_exp);
 
 #endif
