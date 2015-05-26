@@ -6,9 +6,11 @@ struct S_info_{
 	Ty type;
 	union{
 		int ival;
+		int bval;
 		double dval;
-		char* sval;
-	} val;
+		char * sval;	
+		void* other;	// user-defined value
+	} value;
 };
 
 	

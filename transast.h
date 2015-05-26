@@ -1,12 +1,14 @@
 #ifndef _TRANSAST_H_
 #define _TRANSAST_H_
 #include "ast.h"
-#include "type.h"
+#include "syminfo.h"
 #include "symbol.h"
+
 
 struct expOut_{
 	void *exp;
-	Ty ty;
+	struct S_info_ info;
+
 };
 
 /** Iterating the expression node in the absract syntax tree **/
