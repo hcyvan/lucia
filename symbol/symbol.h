@@ -1,6 +1,5 @@
 #ifndef _SYMBOL_H_
 #define _SYMBOL_H_
-
 #include "table.h"
 #define CONVERTSIZE	100
 typedef struct S_table_ * S_table;
