@@ -50,15 +50,15 @@ struct expOut_ transExp(S_table env,N_exp exp)
 				case _PLUS:
 					if(left.info.type!=right.info.type)
 						errorExit("Type is not the same in the binary operator\n");
-					e.info.type->kind=left.info.type->kind;
+					e.info.type=left.info.type;
 					if(left.info.type==Ty_Int())
 						e.info.value.ival=left.info.value.ival+right.info.value.ival;
 					if(left.info.type==Ty_Double())
 						e.info.value.dval=left.info.value.dval+right.info.value.dval;
 					if(left.info.type==Ty_String()){
 						// malloc() new memory and concatenate two string
-						e.info.value.sval=checked_malloc(sizeof(left.info.value.sval) \
-						+sizeof(right.info.value.sval)-1);
+						e.info.value.sval=checked_malloc(strlen(left.info.value.sval) \
+						+strlen(right.info.value.sval)+1);
 						strcpy(e.info.value.sval,left.info.value.sval);
 						strcat(e.info.value.sval,right.info.value.sval);
 					}
@@ -228,18 +228,32 @@ void transStm(S_table env,N_stm stm)
 			transExp(env,stm->val.exp);
 			break;
 		case _PRINT:
-			transExp(env,stm->val.exp);
-			////////////////////////////////////////
-			///////////////////////////////////////
-			//to be continue
-			//////////////////////////////////////
+			{
+			struct expOut_ e=transExp(env,stm->val.exp);
+			if(e.info.type==Ty_Int())
+				printf("%d",e.info.value.ival);
+			else if(e.info.type==Ty_Double())
+				printf("%f",e.info.value.dval);
+			else if(e.info.type==Ty_String())
+				printf("%s",e.info.value.sval);
+			else if(e.info.type==Ty_Bool()){
+				if(e.info.value.bval==1)
+					printf("true");
+				else
+					printf("false");
+			}
+			}
 			break;
 		case _ASSIGN:
 			{
 			S_symbol key=symbolConvert(stm->val.assign.id);
 			S_info info=(S_info)ST_getValue(env,key);
 			struct expOut_ e=transExp(env,stm->val.assign.exp);		
+
 			// Copy the memory of e.info to the symbol.
+			// If the value is a string(char*), the memory
+			// of the string would not be free, and it will
+			// be free later.
 			memcpy(info,&e.info,sizeof(struct S_info_));
 			}
 			break;

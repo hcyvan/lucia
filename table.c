@@ -1,5 +1,6 @@
 #include "table.h"
 #include "lib.h"
+#include "syminfo.h"
 
 S_table T_create(void)
 {
@@ -41,6 +42,7 @@ void* T_pop(S_table t)
 
 binder T_lookUp(S_table t,void *key)
 {
+	
 	assert(t&&key);
 	int index=((unsigned)key) % TABLESIZE;
 
