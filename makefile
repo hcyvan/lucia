@@ -3,8 +3,8 @@ YACC=bison -v -d
 LEX=flex
 OBJECTS=main.o lex.o lucia.tab.o message.o lib.o ast.o symbol.o type.o table.o syminfo.o transast.o
 
-parser:$(OBJECTS)
-	$(CC) -o parser $(OBJECTS)
+lucia:$(OBJECTS)
+	$(CC) -o lucia $(OBJECTS)
 main.o:main.c lib.h lucia.tab.h message.h
 	$(CC) -o main.o -c main.c
 lex.o:lex.yy.c lucia.tab.h
@@ -22,4 +22,4 @@ lucia.tab.c lucia.tab.h:lucia.y
 
 .PHONY:clean
 clean:
-	rm -f lex.yy.c lucia.tab.c lucia.tab.h lucia.output lucia.tab.o parser $(OBJECTS)
+	rm -f lex.yy.c lucia.tab.c lucia.tab.h lucia.output lucia.tab.o lucia $(OBJECTS)

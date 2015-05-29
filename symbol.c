@@ -1,6 +1,7 @@
 #include "symbol.h"
 #include "lib.h"
 #include "type.h"
+#include "syminfo.h"
 
 /** It's a hash table, but it is not a symbol table.
 	We convert the symbol to a unique address, so the
@@ -22,9 +23,12 @@ S_symbol symbolConvert(char *s)
 {
 	int index=hash(s)%TABLESIZE;
 
-	for(S_symbol p=S_convertTable[index]; p ; p=p->next)
-		if(!strcmp(p->name,s))
+	// Find the same symbol
+	for(S_symbol p=S_convertTable[index]; p!= NULL ; p=p->next){
+		if(!strcmp(p->name,s)){
 			return p;
+		}
+	}
 	
 	S_symbol sym=(S_symbol)checked_malloc(sizeof(*sym));
 	sym->name=strdup(s);// segment fault debug: sym->name should be initialized
@@ -50,7 +54,6 @@ void* ST_pop(S_table t)
 
 binder ST_lookUp(S_table t,S_symbol key)
 {
-
 	return T_lookUp(t,(void*)key);	
 }
 
@@ -60,9 +63,10 @@ void* ST_getValue(S_table t, S_symbol key)
 		binder p=T_lookUp(t,(void*)key);
 		return (void*)p->value;
 	}
-	void* nil=(void*)Ty_Nil();
-	ST_push(t,key,nil);
-	return nil;
+	// If the symbol is not exist, create new value(S_info_) for the key.
+	void* value=(void*)SI_create();
+	ST_push(t,key,value);
+	return value;
 }
 
 void ST_setValue(S_table t,S_symbol key,void* value)

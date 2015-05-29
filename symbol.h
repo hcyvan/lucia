@@ -26,8 +26,8 @@ void* ST_pop(S_table);
 binder ST_lookUp(S_table,S_symbol);
 /** Check if a symbol is in the symbol table use ST_lookUp().
 	If the symbol is exist, return the (void*) value, otherwise,
-	push the symbol to the symbol table and return (void*)Ty_Nil.
-	**/
+	push the symbol to the symbol table and return a new malloc
+	value. **/
 void* ST_getValue(S_table, S_symbol);
 /** Set the value of a symbol in the symbol table **/
 void ST_setValue(S_table,S_symbol,void*);

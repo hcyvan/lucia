@@ -118,8 +118,14 @@ N_const	Const_CHAR(char c)
 N_const	Const_STRING(char* s)
 {
 	N_const p=(N_const)checked_malloc(sizeof(*p));
-	p->type=_STRING;
-	p->val.s=strdup(s);		// strdup() to copy a string 
+	p->type=_STRING;		
+	// strdup() to copy a string, and delete the two ' " '
+	//p->val.s=strdup(s+1); 
+	//char *qoute=strchr(p->val.s,'"');
+	//*qoute='\0';
+	p->val.s=checked_malloc(strlen(s)-1);
+	strncpy(p->val.s,s+1,strlen(s)-1);
+	*(p->val.s+strlen(s)-2)='\0';
 	return p;
 }
 N_const	Const_BOOL(char* s)
