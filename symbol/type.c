@@ -1,4 +1,4 @@
-#include "type.h"
+#include "../include/type.h"
 
 struct Ty_ tynil={Ty_nil};
 struct Ty_ tyint={Ty_int};

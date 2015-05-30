@@ -1,5 +1,5 @@
-#include "syminfo.h"
-#include "lib.h"
+#include "../include/syminfo.h"
+#include "../include/lib.h"
 
 S_info SI_create(void)
 {

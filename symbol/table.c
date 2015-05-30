@@ -1,6 +1,6 @@
-#include "table.h"
-#include "lib.h"
-#include "syminfo.h"
+#include "../include/table.h"
+#include "../include/lib.h"
+#include "../include/syminfo.h"
 
 S_table T_create(void)
 {

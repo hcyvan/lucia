@@ -1,10 +1,10 @@
 #include "lib.h"
-#include "lucia.tab.h"
 #include "message.h"
 #include "ast.h"
 #include "symbol.h"
 #include "type.h"
 #include "transast.h"
+#include "lucia.tab.h"
 extern FILE *yyin;
 extern int yyparse(void);
 

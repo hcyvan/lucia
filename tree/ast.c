@@ -1,8 +1,8 @@
 #include "ast.h"
-#include "lib.h"
-#include "symbol.h"
-#include "table.h"
-#include "syminfo.h"
+#include "../include/lib.h"
+#include "../include/symbol.h"
+#include "../include/table.h"
+#include "../include/syminfo.h"
 // symbol talbe create in main.o
 extern S_table symbolTable;  
 

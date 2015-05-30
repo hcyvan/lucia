@@ -1,7 +1,7 @@
 %{
-#include "lucia.tab.h"
-#include "message.h"
-#include "lib.h"
+#include "../include/lucia.tab.h"
+#include "../include/message.h"
+#include "../include/lib.h"
 int column=1;
 int yywrap(void)
 {

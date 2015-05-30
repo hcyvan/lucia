@@ -1,7 +1,7 @@
 %{
-#include "message.h"
-#include "ast.h"
-#include "lib.h"
+#include "../include/message.h"
+#include "../include/ast.h"
+#include "../include/lib.h"
 //#include "symbol.h"
 //#include "table.h"
 extern int yylineno;		// yylineno is the line number of source
@@ -56,6 +56,7 @@ int yylex(void);
 %nonassoc NEGATIVE
 %left OR
 %left AND
+%left EQ NE GT LT GE LE
 %left '+' '-'
 %left '*' '/'
 %left '^'

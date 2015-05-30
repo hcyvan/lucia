@@ -5,7 +5,7 @@
 #include <string.h>
 #include <assert.h>
 // the function prototype decleared in <string.h>
-extern char* strdup(char*);
+//extern char* strdup(char*);
 // if malloc() return NULL, call exit().
 void *checked_malloc(int);
 // perror() massage and eixt()

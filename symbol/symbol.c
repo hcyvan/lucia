@@ -1,7 +1,7 @@
-#include "symbol.h"
-#include "lib.h"
-#include "type.h"
-#include "syminfo.h"
+#include "../include/symbol.h"
+#include "../include/lib.h"
+#include "../include/type.h"
+#include "../include/syminfo.h"
 
 /** It's a hash table, but it is not a symbol table.
 	We convert the symbol to a unique address, so the
