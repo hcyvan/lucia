@@ -63,12 +63,7 @@ struct expOut_ transExp(S_table env,N_exp exp)
 						strcat(e.info.value.sval,right.info.value.sval);
 					}
 					if(left.info.type==Ty_Bool()){
-						///////////////////////////////////
-						/////////////////////////////////////
-						//////////////////////////////////////
-						//bool //////////////////////////////
-						////////////////////////////////////
-						;
+						errorExit("Ty_bool is not suport the _PLUS expresion now.\n");
 					}
 					break;
 				case _MINUS:
@@ -80,19 +75,10 @@ struct expOut_ transExp(S_table env,N_exp exp)
 					if(left.info.type==Ty_Double())
 						e.info.value.dval=left.info.value.dval-right.info.value.dval;
 					if(left.info.type==Ty_String()){
-						///////////////////////////////////////
-						////////////////////////////////////
-						///			string MINUS ////////////
-						//////////////////////////////////	
-						;
+						errorExit("Ty_string is not suport the _MINUS expresion now.\n");
 					}
 					if(left.info.type==Ty_Bool()){
-						///////////////////////////////////
-						/////////////////////////////////////
-						//////////////////////////////////////
-						//bool //////////////////////////////
-						////////////////////////////////////
-						;
+						errorExit("Ty_bool is not suport the _MINUS expresion now.\n");
 					}
 					break;
 				case _TIMES:
@@ -104,22 +90,13 @@ struct expOut_ transExp(S_table env,N_exp exp)
 					if(left.info.type==Ty_Double())
 						e.info.value.dval=left.info.value.dval*right.info.value.dval;
 					if(left.info.type==Ty_String()){
-						///////////////////////////////////////
-						////////////////////////////////////
-						///			string Time////////////
-						//////////////////////////////////	
-						;
+						errorExit("Ty_string is not suport the _TIMES expresion now.\n");
 					}
 					if(left.info.type==Ty_Bool()){
-						///////////////////////////////////
-						/////////////////////////////////////
-						//////////////////////////////////////
-						//bool //////////////////////////////
-						////////////////////////////////////
-						;
+						errorExit("Ty_bool is not suport the _TIMES expresion now.\n");
 					}  
 					break;
-				case _DIVIDSE:
+				case _DIVIDE:
 					if(left.info.type!=right.info.type)
 						errorExit("Type is not the same in the binary operator\n");
 					e.info.type=left.info.type;
@@ -128,24 +105,36 @@ struct expOut_ transExp(S_table env,N_exp exp)
 					if(left.info.type==Ty_Double())
 						e.info.value.dval=left.info.value.dval/right.info.value.dval;
 					if(left.info.type==Ty_String()){
-						///////////////////////////////////////
-						////////////////////////////////////
-						///			string dived ////////////
-						//////////////////////////////////	
-						;
+						errorExit("Ty_string is not suport the _DIVIDE expresion now.\n");
 					}
 					if(left.info.type==Ty_Bool()){
-						///////////////////////////////////
-						/////////////////////////////////////
-						//////////////////////////////////////
-						//bool //////////////////////////////
-						////////////////////////////////////
-						;
+						errorExit("Ty_bool is not suport the _DIVIDE expresion now.\n");
 					}  
 					break;
-				//case _POW	
-				//case _AND
-				//case _OR
+				//case _POW:	
+						
+				case _AND:
+					e.info.type=left.info.type;
+					if(left.info.type!=Ty_Bool() || right.info.type!=Ty_Bool())
+						errorExit("_AND is only surport Ty_Bool now.\n");
+					else{
+						if(left.info.value.bval==1 && right.info.value.bval==1)
+							e.info.value.bval=1;
+						else
+							e.info.value.bval=0;
+					}
+					break;
+				case _OR:
+					e.info.type=left.info.type;
+					if(left.info.type!=Ty_Bool() || right.info.type!=Ty_Bool())
+						errorExit("_OR is only surport Ty_Bool now.\n");
+					else{
+						if(left.info.value.bval==1 || right.info.value.bval==1)
+							e.info.value.bval=1;
+						else
+							e.info.value.bval=0;
+					}
+					break;
 				//case _EQ
 				//case _NE
 				//case _GT
@@ -184,14 +173,18 @@ struct expOut_ transExp(S_table env,N_exp exp)
 					break;
 				case _NOT:
 					if(e.info.type==Ty_Int()){
-						/////////////////////////
-						/////////////////////////
-						;
+						e.info.type=Ty_Bool();
+						if(e.info.value.ival==0)
+							e.info.value.bval=0;
+						else
+							e.info.value.bval=1;
 					}
 					if(e.info.type==Ty_Double()){
-						/////////////////////////
-						/////////////////////////
-						;
+						e.info.type=Ty_Bool();
+						if(e.info.value.dval==0.0)
+							e.info.value.bval=0;
+						else
+							e.info.value.bval=1;
 					}
 					if(e.info.type==Ty_String()){
 						///////////////////////////////////////
@@ -201,12 +194,10 @@ struct expOut_ transExp(S_table env,N_exp exp)
 						// malloc() new memory and concatenate two string
 					}
 					if(e.info.type==Ty_Bool()){
-						///////////////////////////////////
-						/////////////////////////////////////
-						//////////////////////////////////////
-						//bool //////////////////////////////
-						////////////////////////////////////
-						;
+						if(e.info.value.bval==1)
+							e.info.value.bval=0;
+						else
+							e.info.value.bval=1;
 					}
 					break;
 				default:

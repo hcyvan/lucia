@@ -5,7 +5,7 @@ SRC=$(wildcard *.c)
 # sub the .c to .o
 OBJ=$(patsubst %.c,%.o,$(SRC))
 
-.PHONY:all
+#.PHONY:all
 all:$(OBJ)
 %.o:%.c
 	$(CC) $(CFlags) -c $< -o $(ROOT)/debug/$@ 

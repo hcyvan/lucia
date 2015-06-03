@@ -38,7 +38,7 @@ struct N_exp_{
 	} val;
 };
 struct N_bopExp_{
-	enum{_PLUS,_MINUS,_TIMES,_DIVIDSE,_POW,_AND,_OR,\
+	enum{_PLUS,_MINUS,_TIMES,_DIVIDE,_POW,_AND,_OR,\
 			_EQ,_NE,_GT,_LT,_GE,_LE} type;
 	N_exp left;
 	N_exp right;

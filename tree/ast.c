@@ -165,7 +165,7 @@ N_bopExp BopExp_TIMES(N_exp left,N_exp right)
 N_bopExp BopExp_DIVIDE(N_exp left,N_exp right)
 {
 	N_bopExp p=(N_bopExp)checked_malloc(sizeof(*p));
-	p->type=_DIVIDSE;
+	p->type=_DIVIDE;
 	p->left=left;
 	p->right=right;
 	return p;

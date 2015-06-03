@@ -1,5 +1,6 @@
 export ROOT=$(shell pwd)
 include env.mk
+.PHONY:lucia
 lucia:
 	@(cd parse;make)
 	@(cd etc;make)
