@@ -1,5 +1,6 @@
 include $(ROOT)/env.mk
 
+
 .PHONY:all
 all:lucia.tab.o lex.o main.o
 lucia.tab.o:lucia.tab.c lucia.tab.h

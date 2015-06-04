@@ -7,7 +7,7 @@ OBJ=$(patsubst %.c,%.o,$(SRC))
 
 #.PHONY:all
 all:$(OBJ)
-%.o:%.c
+%.o:%.c makefile
 	$(CC) $(CFlags) -c $< -o $(ROOT)/debug/$@ 
 
 
